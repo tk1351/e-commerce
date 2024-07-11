@@ -1,10 +1,14 @@
+"use client";
+
 import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { NAVBAR_LINKS } from "@/app/constants";
 
 export const Navbar: FC = () => {
+  const { data: session } = useSession();
   return (
     <header>
       <nav className="p-4 lg:p-6">
@@ -53,7 +57,14 @@ export const Navbar: FC = () => {
               </div>
             </form>
           </div>
-          <div className="flex justify-end md:w-1/3">
+          <div className="flex items-center justify-end gap-6 md:w-1/3">
+            {session === null ? (
+              <Link href="/login">Login</Link>
+            ) : (
+              <button type="button" onClick={() => signOut()}>
+                Logout
+              </button>
+            )}
             <button
               type="button"
               aria-label="Open cart"

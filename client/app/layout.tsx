@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Navbar } from "@/app/components/common/Navbar";
 import { Footer } from "@/app/components/common/Footer";
+import { AuthWrapper } from "@/app/components/common/AuthWrapper";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,13 +19,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="grid min-h-screen grid-cols-[100%] grid-rows-[auto_1fr_auto]">
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </div>
-      </body>
+      <AuthWrapper>
+        <body className={inter.className}>
+          <div className="grid min-h-screen grid-cols-[100%] grid-rows-[auto_1fr_auto]">
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </body>
+      </AuthWrapper>
     </html>
   );
 }
